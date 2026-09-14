@@ -1,0 +1,33 @@
+service_name: kyc-service
+description: >
+  Internal identity-verification service storing customer identity documents,
+  biometric hash templates, and address-verification records for onboarding
+  and regulatory compliance.
+
+network:
+  public_exposure: false
+  internet_facing: false
+  tls_min_version: "TLSv1.2"
+  tls_cipher_policy: "HIGH:!aNULL:!MD5"
+
+data_classification:
+  primary_data_types: ["PII", "KYC_documents", "biometric_hash"]
+  sensitivity: "critical"
+  retention_period_years: 10
+  data_at_rest_encryption: "AES-256-GCM"
+
+vendor_dependencies:
+  - name: "IdentityCheck Global"
+    role: "third-party identity document verification"
+    quantum_safe_roadmap_confirmed: false
+    integration_type: "REST API, ECDH-derived session encryption"
+
+crypto_agility:
+  hardcoded_key_paths: false
+  algorithm_configurable_at_runtime: true
+  notes: >
+    ECDH curve and KDF are set via constants in code but the encryption
+    layer is modular; migrating to a PQC KEM (e.g. ML-KEM) would require
+    moderate refactoring, not a full rewrite.
+
+business_criticality: "high"

@@ -1,0 +1,29 @@
+service_name: internal-test-app
+description: >
+  QA/staging harness for generating synthetic transactions and test
+  payloads. Deployed only within the internal staging network and never
+  processes real customer or financial data.
+
+network:
+  public_exposure: false
+  internet_facing: false
+  tls_min_version: "TLSv1.2"
+  tls_cipher_policy: "HIGH"
+
+data_classification:
+  primary_data_types: ["synthetic_test_data"]
+  sensitivity: "none"
+  retention_period_years: 0
+  data_at_rest_encryption: "DES-ECB (test fixtures only)"
+
+vendor_dependencies: []
+
+crypto_agility:
+  hardcoded_key_paths: false
+  algorithm_configurable_at_runtime: true
+  notes: >
+    Weak algorithms used deliberately for lightweight fixture obfuscation.
+    No migration urgency given zero real-data exposure, but flagged for
+    good hygiene / to avoid pattern-copying into production code.
+
+business_criticality: "low"

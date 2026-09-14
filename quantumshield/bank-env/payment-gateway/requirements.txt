@@ -1,0 +1,4 @@
+fastapi==0.95.0
+pycryptodome==3.10.1
+requests==2.25.1
+pyOpenSSL==19.1.0

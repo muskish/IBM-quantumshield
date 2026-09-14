@@ -1,0 +1,2 @@
+fastapi==0.100.0
+cryptography==38.0.4

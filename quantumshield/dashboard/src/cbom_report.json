@@ -1,0 +1,379 @@
+{
+  "report_generated_at": "2026-09-13T19:36:33.264617+00:00",
+  "report_type": "Cryptography Bill of Materials (CBOM)",
+  "services": {
+    "internal-test-app": {
+      "source_code_findings": [
+        {
+          "algorithm": "MD5",
+          "risk_category": "weak_classical",
+          "occurrences": 2
+        },
+        {
+          "algorithm": "DES",
+          "risk_category": "weak_classical",
+          "occurrences": 4
+        }
+      ],
+      "certificate_findings": [],
+      "business_context": {
+        "service_name": "internal-test-app",
+        "description": "QA/staging harness for generating synthetic transactions and test payloads. Deployed only within the internal staging network and never processes real customer or financial data.",
+        "public_exposure": false,
+        "internet_facing": false,
+        "tls_min_version": "TLSv1.2",
+        "data_sensitivity": "none",
+        "data_types": [
+          "synthetic_test_data"
+        ],
+        "retention_period_years": 0,
+        "vendor_dependencies": [],
+        "algorithm_configurable_at_runtime": true,
+        "business_criticality": "low"
+      },
+      "risk_assessment": {
+        "service_name": "internal-test-app",
+        "risk_score": 2.4,
+        "risk_level": "Low",
+        "explanation": [
+          "MD5 found 2x (weak_classical, contributes +4)",
+          "DES found 4x (weak_classical, contributes +8)",
+          "Data sensitivity 'none' applies a x0.2 multiplier"
+        ]
+      }
+    },
+    "kyc-service": {
+      "source_code_findings": [
+        {
+          "algorithm": "SHA-1",
+          "risk_category": "weak_classical",
+          "occurrences": 1
+        },
+        {
+          "algorithm": "ECC/ECDH",
+          "risk_category": "quantum_vulnerable",
+          "occurrences": 5
+        },
+        {
+          "algorithm": "AES-256",
+          "risk_category": "strong",
+          "occurrences": 6
+        },
+        {
+          "algorithm": "SHA-256",
+          "risk_category": "strong",
+          "occurrences": 2
+        }
+      ],
+      "certificate_findings": [
+        {
+          "subject": "CN=kyc-service.bank.demo,OU=KYCService,O=QuantumShieldDemo,C=US",
+          "algorithm": "ECC",
+          "key_size": 256,
+          "expiry_date": "2027-09-13",
+          "days_until_expiry": 364,
+          "is_quantum_vulnerable": true
+        }
+      ],
+      "business_context": {
+        "service_name": "kyc-service",
+        "description": "Internal identity-verification service storing customer identity documents, biometric hash templates, and address-verification records for onboarding and regulatory compliance.",
+        "public_exposure": false,
+        "internet_facing": false,
+        "tls_min_version": "TLSv1.2",
+        "data_sensitivity": "critical",
+        "data_types": [
+          "PII",
+          "KYC_documents",
+          "biometric_hash"
+        ],
+        "retention_period_years": 10,
+        "vendor_dependencies": [
+          {
+            "name": "IdentityCheck Global",
+            "role": "third-party identity document verification",
+            "quantum_safe_roadmap_confirmed": false,
+            "integration_type": "REST API, ECDH-derived session encryption"
+          }
+        ],
+        "algorithm_configurable_at_runtime": true,
+        "business_criticality": "high"
+      },
+      "risk_assessment": {
+        "service_name": "kyc-service",
+        "risk_score": 62.0,
+        "risk_level": "High",
+        "explanation": [
+          "SHA-1 found 1x (weak_classical, contributes +2)",
+          "ECC/ECDH found 5x (quantum_vulnerable, contributes +15)",
+          "Certificate uses ECC (256 bits) - quantum-vulnerable (+3)",
+          "Data sensitivity 'critical' applies a x3.0 multiplier",
+          "10-year data retention adds +2.0"
+        ]
+      }
+    },
+    "loan-service": {
+      "source_code_findings": [
+        {
+          "algorithm": "RSA",
+          "risk_category": "quantum_vulnerable",
+          "occurrences": 2
+        },
+        {
+          "algorithm": "Diffie-Hellman",
+          "risk_category": "quantum_vulnerable",
+          "occurrences": 4
+        },
+        {
+          "algorithm": "AES-128 (Fernet)",
+          "risk_category": "strong",
+          "occurrences": 7
+        },
+        {
+          "algorithm": "SHA-256",
+          "risk_category": "strong",
+          "occurrences": 2
+        }
+      ],
+      "certificate_findings": [],
+      "business_context": {
+        "service_name": "loan-service",
+        "description": "Stores signed loan agreements, amortization schedules, and collateral documentation. Synchronizes encrypted document bundles between branch offices on a nightly batch job.",
+        "public_exposure": false,
+        "internet_facing": false,
+        "tls_min_version": "TLSv1.2",
+        "data_sensitivity": "high",
+        "data_types": [
+          "loan_agreements",
+          "collateral_records",
+          "customer_financial_data"
+        ],
+        "retention_period_years": 15,
+        "vendor_dependencies": [
+          {
+            "name": "none",
+            "role": "n/a - fully internal",
+            "quantum_safe_roadmap_confirmed": null,
+            "integration_type": "n/a"
+          }
+        ],
+        "algorithm_configurable_at_runtime": false,
+        "business_criticality": "medium-high"
+      },
+      "risk_assessment": {
+        "service_name": "loan-service",
+        "risk_score": 40.0,
+        "risk_level": "High",
+        "explanation": [
+          "RSA found 2x (quantum_vulnerable, contributes +6)",
+          "Diffie-Hellman found 4x (quantum_vulnerable, contributes +12)",
+          "Data sensitivity 'high' applies a x2.0 multiplier",
+          "15-year data retention adds +3.0",
+          "Cryptography is hardcoded/not runtime-configurable, adds +1"
+        ]
+      }
+    },
+    "mobile-banking-api": {
+      "source_code_findings": [
+        {
+          "algorithm": "ECC/ECDH",
+          "risk_category": "quantum_vulnerable",
+          "occurrences": 1
+        },
+        {
+          "algorithm": "SHA-256",
+          "risk_category": "strong",
+          "occurrences": 1
+        },
+        {
+          "algorithm": "ChaCha20-Poly1305",
+          "risk_category": "strong",
+          "occurrences": 2
+        },
+        {
+          "algorithm": "X25519",
+          "risk_category": "strong",
+          "occurrences": 4
+        },
+        {
+          "algorithm": "Hybrid PQC (ML-KEM)",
+          "risk_category": "quantum_safe",
+          "occurrences": 3
+        }
+      ],
+      "certificate_findings": [],
+      "business_context": {
+        "service_name": "mobile-banking-api",
+        "description": "Customer-facing API backing the mobile banking app. Piloted a hybrid classical + post-quantum key-exchange scheme (X25519 + ML-KEM-768) starting in the TLS 1.3 hybrid ciphersuite rollout (ADR-2025-11).",
+        "public_exposure": true,
+        "internet_facing": true,
+        "tls_min_version": "TLSv1.3",
+        "data_sensitivity": "high",
+        "data_types": [
+          "session_tokens",
+          "customer_transaction_data"
+        ],
+        "retention_period_years": 2,
+        "vendor_dependencies": [
+          {
+            "name": "none",
+            "role": "n/a - session security handled in-house",
+            "quantum_safe_roadmap_confirmed": true,
+            "integration_type": "n/a"
+          }
+        ],
+        "algorithm_configurable_at_runtime": true,
+        "business_criticality": "high"
+      },
+      "risk_assessment": {
+        "service_name": "mobile-banking-api",
+        "risk_score": 2.4,
+        "risk_level": "Low",
+        "explanation": [
+          "ECC/ECDH found 1x (quantum_vulnerable, contributes +3)",
+          "Hybrid PQC (ML-KEM) found - already quantum-safe (contributes -3)",
+          "Data sensitivity 'high' applies a x2.0 multiplier",
+          "Public-facing service adds +2.0",
+          "2-year data retention adds +0.4"
+        ]
+      }
+    },
+    "payment-gateway": {
+      "source_code_findings": [
+        {
+          "algorithm": "MD5",
+          "risk_category": "weak_classical",
+          "occurrences": 2
+        },
+        {
+          "algorithm": "3DES",
+          "risk_category": "weak_classical",
+          "occurrences": 3
+        },
+        {
+          "algorithm": "RSA",
+          "risk_category": "quantum_vulnerable",
+          "occurrences": 5
+        },
+        {
+          "algorithm": "SHA-256",
+          "risk_category": "strong",
+          "occurrences": 2
+        },
+        {
+          "algorithm": "TLS 1.0 (outdated protocol)",
+          "risk_category": "weak_classical",
+          "occurrences": 1
+        }
+      ],
+      "certificate_findings": [
+        {
+          "subject": "CN=payment-gateway.bank.demo,OU=PaymentGateway,O=QuantumShieldDemo,C=US",
+          "algorithm": "RSA",
+          "key_size": 2048,
+          "expiry_date": "2027-09-12",
+          "days_until_expiry": 363,
+          "is_quantum_vulnerable": true
+        }
+      ],
+      "business_context": {
+        "service_name": "payment-gateway",
+        "description": "Public-facing API accepting customer card and bank-transfer payments, forwarding settlement requests to an external payment processor.",
+        "public_exposure": true,
+        "internet_facing": true,
+        "tls_min_version": "TLSv1.0",
+        "data_sensitivity": "critical",
+        "data_types": [
+          "PCI",
+          "customer_transaction_data"
+        ],
+        "retention_period_years": 12,
+        "vendor_dependencies": [
+          {
+            "name": "VendorPay Inc",
+            "role": "external settlement processor",
+            "quantum_safe_roadmap_confirmed": false,
+            "integration_type": "REST API over TLS, RSA-signed payloads"
+          }
+        ],
+        "algorithm_configurable_at_runtime": false,
+        "business_criticality": "high"
+      },
+      "risk_assessment": {
+        "service_name": "payment-gateway",
+        "risk_score": 95.4,
+        "risk_level": "Critical",
+        "explanation": [
+          "MD5 found 2x (weak_classical, contributes +4)",
+          "3DES found 3x (weak_classical, contributes +6)",
+          "RSA found 5x (quantum_vulnerable, contributes +15)",
+          "TLS 1.0 (outdated protocol) found 1x (weak_classical, contributes +2)",
+          "Certificate uses RSA (2048 bits) - quantum-vulnerable (+3)",
+          "Data sensitivity 'critical' applies a x3.0 multiplier",
+          "Public-facing service adds +2.0",
+          "12-year data retention adds +2.4",
+          "Cryptography is hardcoded/not runtime-configurable, adds +1"
+        ]
+      }
+    }
+  },
+  "migration_roadmap": {
+    "1": [
+      {
+        "service_name": "payment-gateway",
+        "risk_level": "Critical",
+        "risk_score": 95.4,
+        "actions": [
+          "Replace MD5 with SHA-256 or SHA-3 for any integrity/hashing use case.",
+          "Replace 3DES with AES-256-GCM for data-at-rest and in-transit encryption.",
+          "Plan migration to a post-quantum or hybrid signature scheme (e.g. ML-DSA or hybrid RSA+ML-DSA).",
+          "Disable TLS 1.0/1.1 support; enforce TLS 1.3 with modern cipher suites.",
+          "Reissue certificate using a hybrid or post-quantum-ready algorithm ahead of expiry.",
+          "Confirm vendor's post-quantum migration roadmap and require hybrid cryptography support contractually."
+        ]
+      }
+    ],
+    "2": [
+      {
+        "service_name": "kyc-service",
+        "risk_level": "High",
+        "risk_score": 62.0,
+        "actions": [
+          "Replace SHA-1 with SHA-256 for all hashing and fingerprinting.",
+          "Migrate to a hybrid key exchange combining ECDH with a post-quantum KEM (e.g. ML-KEM-768).",
+          "Reissue certificate using a hybrid or post-quantum-ready algorithm ahead of expiry.",
+          "Confirm vendor's post-quantum migration roadmap and require hybrid cryptography support contractually."
+        ]
+      },
+      {
+        "service_name": "loan-service",
+        "risk_level": "High",
+        "risk_score": 40.0,
+        "actions": [
+          "Plan migration to a post-quantum or hybrid signature scheme (e.g. ML-DSA or hybrid RSA+ML-DSA).",
+          "Replace classical DH key exchange with a hybrid classical+PQC KEM (e.g. X25519+ML-KEM)."
+        ]
+      }
+    ],
+    "3": [],
+    "4": [
+      {
+        "service_name": "internal-test-app",
+        "risk_level": "Low",
+        "risk_score": 2.4,
+        "actions": [
+          "Replace MD5 with SHA-256 or SHA-3 for any integrity/hashing use case.",
+          "Replace DES with AES-256-GCM immediately; DES is broken by modern standards."
+        ]
+      },
+      {
+        "service_name": "mobile-banking-api",
+        "risk_level": "Low",
+        "risk_score": 2.4,
+        "actions": [
+          "Migrate to a hybrid key exchange combining ECDH with a post-quantum KEM (e.g. ML-KEM-768)."
+        ]
+      }
+    ]
+  }
+}

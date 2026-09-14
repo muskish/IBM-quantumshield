@@ -1,0 +1,33 @@
+service_name: mobile-banking-api
+description: >
+  Customer-facing API backing the mobile banking app. Piloted a hybrid
+  classical + post-quantum key-exchange scheme (X25519 + ML-KEM-768)
+  starting in the TLS 1.3 hybrid ciphersuite rollout (ADR-2025-11).
+
+network:
+  public_exposure: true
+  internet_facing: true
+  tls_min_version: "TLSv1.3"
+  tls_cipher_policy: "TLS_CHACHA20_POLY1305_SHA256 (hybrid X25519+ML-KEM-768)"
+
+data_classification:
+  primary_data_types: ["session_tokens", "customer_transaction_data"]
+  sensitivity: "high"
+  retention_period_years: 2
+  data_at_rest_encryption: "N/A (session layer only, no long-term storage)"
+
+vendor_dependencies:
+  - name: "none"
+    role: "n/a - session security handled in-house"
+    quantum_safe_roadmap_confirmed: true
+    integration_type: "n/a"
+
+crypto_agility:
+  hardcoded_key_paths: false
+  algorithm_configurable_at_runtime: true
+  notes: >
+    Ciphersuite negotiation is configuration-driven; hybrid PQC KEM
+    already piloted. Considered a reference example of good
+    crypto-agility within the bank.
+
+business_criticality: "high"

@@ -1,0 +1,32 @@
+service_name: payment-gateway
+description: >
+  Public-facing API accepting customer card and bank-transfer payments,
+  forwarding settlement requests to an external payment processor.
+
+network:
+  public_exposure: true
+  internet_facing: true
+  tls_min_version: "TLSv1.0"
+  tls_cipher_policy: "DEFAULT:@SECLEVEL=1"
+
+data_classification:
+  primary_data_types: ["PCI", "customer_transaction_data"]
+  sensitivity: "critical"
+  retention_period_years: 12
+  data_at_rest_encryption: "3DES-CBC"
+
+vendor_dependencies:
+  - name: "VendorPay Inc"
+    role: "external settlement processor"
+    quantum_safe_roadmap_confirmed: false
+    integration_type: "REST API over TLS, RSA-signed payloads"
+
+crypto_agility:
+  hardcoded_key_paths: true
+  algorithm_configurable_at_runtime: false
+  notes: >
+    Signing key path and algorithm choice are hardcoded in source.
+    Would require a code change (not config change) to rotate to a
+    post-quantum or hybrid signature scheme.
+
+business_criticality: "high"

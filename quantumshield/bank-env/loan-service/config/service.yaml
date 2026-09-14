@@ -1,0 +1,34 @@
+service_name: loan-service
+description: >
+  Stores signed loan agreements, amortization schedules, and collateral
+  documentation. Synchronizes encrypted document bundles between branch
+  offices on a nightly batch job.
+
+network:
+  public_exposure: false
+  internet_facing: false
+  tls_min_version: "TLSv1.2"
+  tls_cipher_policy: "HIGH:!aNULL"
+
+data_classification:
+  primary_data_types: ["loan_agreements", "collateral_records", "customer_financial_data"]
+  sensitivity: "high"
+  retention_period_years: 15
+  data_at_rest_encryption: "Fernet (AES-128-CBC + HMAC-SHA256)"
+
+vendor_dependencies:
+  - name: "none"
+    role: "n/a - fully internal"
+    quantum_safe_roadmap_confirmed: null
+    integration_type: "n/a"
+
+crypto_agility:
+  hardcoded_key_paths: false
+  algorithm_configurable_at_runtime: false
+  notes: >
+    DH parameters were generated once in 2015 and hardcoded into the
+    deployment artifact rather than regenerated or rotated. Migrating
+    away from classic DH would require regenerating and redistributing
+    parameters across every branch node - a coordination-heavy migration.
+
+business_criticality: "medium-high"

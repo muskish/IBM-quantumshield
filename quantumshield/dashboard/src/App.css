@@ -1,0 +1,271 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #0f172a;
+  color: #e2e8f0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.dashboard {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+.dashboard-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.dashboard-header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.25rem;
+  color: #f8fafc;
+}
+
+.dashboard-header p {
+  margin: 0.25rem 0;
+  color: #94a3b8;
+}
+
+.report-timestamp {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.priority-ranking {
+  background-color: #1e293b;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.priority-ranking h2, .service-list h2 {
+  margin-top: 0;
+  font-size: 1.3rem;
+  color: #f8fafc;
+}
+
+.priority-ranking ol {
+  padding-left: 1.2rem;
+}
+
+.priority-ranking li {
+  margin-bottom: 0.6rem;
+  font-size: 1rem;
+}
+
+.service-card {
+  background-color: #1e293b;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  border: 1px solid #334155;
+}
+
+.service-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 1.5rem;
+  cursor: pointer;
+}
+
+.service-card-header:hover {
+  background-color: #263449;
+}
+
+.service-card-header h3 {
+  margin: 0 0 0.3rem;
+  color: #f8fafc;
+}
+
+.service-description {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #94a3b8;
+  max-width: 400px;
+}
+
+.service-card-header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex-shrink: 0;
+}
+
+.risk-score {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #f8fafc;
+}
+
+.expand-arrow {
+  color: #64748b;
+}
+
+.service-card-body {
+  padding: 0 1.5rem 1.5rem;
+  border-top: 1px solid #334155;
+}
+
+.service-card-body h4 {
+  color: #f8fafc;
+  margin-bottom: 0.5rem;
+  margin-top: 1.2rem;
+}
+
+.context-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.explanation-list, .findings-list {
+  padding-left: 1.2rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.tag-quantum_vulnerable {
+  background-color: #7c2d12;
+  color: #fed7aa;
+}
+
+.tag-weak_classical {
+  background-color: #7f1d1d;
+  color: #fecaca;
+}
+
+.tag-strong {
+  background-color: #14532d;
+  color: #bbf7d0;
+}
+
+.tag-quantum_safe {
+  background-color: #164e63;
+  color: #a5f3fc;
+}
+
+.login-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0f172a;
+}
+
+.login-card {
+  background-color: #1e293b;
+  border-radius: 12px;
+  padding: 2.5rem;
+  width: 380px;
+  border: 1px solid #334155;
+  text-align: center;
+}
+
+.login-card h1 {
+  color: #f8fafc;
+  font-size: 1.4rem;
+  margin-bottom: 0.3rem;
+}
+
+.login-subtitle {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.login-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: left;
+}
+
+.login-card label {
+  color: #cbd5e1;
+  font-size: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.login-card input,
+.login-card select {
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #475569;
+  background-color: #0f172a;
+  color: #e2e8f0;
+  font-size: 0.95rem;
+}
+
+.login-card button {
+  margin-top: 0.5rem;
+  padding: 0.7rem;
+  border-radius: 6px;
+  border: none;
+  background-color: #2563eb;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.login-card button:hover {
+  background-color: #1d4ed8;
+}
+
+.login-error {
+  color: #f87171;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.login-note {
+  margin-top: 1.5rem;
+  font-size: 0.75rem;
+  color: #64748b;
+  line-height: 1.4;
+}
+
+.session-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  background-color: #1e293b;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 0.85rem;
+  color: #cbd5e1;
+}
+
+.signout-btn {
+  padding: 0.3rem 0.8rem;
+  border-radius: 6px;
+  border: 1px solid #475569;
+  background-color: transparent;
+  color: #e2e8f0;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.signout-btn:hover {
+  background-color: #334155;
+}
